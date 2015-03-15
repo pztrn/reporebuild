@@ -22,6 +22,8 @@ build_main() {
     fi
 }
 
+# This function checks for packages list existing.
+# This packages list should be placed in $HOME/.config/reporebuild.list.
 function check_packages_list_file() {
     if [ ! -f "~/.config/reporebuild.list" ]; then
         log 0 "ERROR" "ERROR: packages list not found!"
@@ -32,11 +34,16 @@ function check_packages_list_file() {
     fi
 }
 
+# Starting point to build all packages.
+# Essentially, this method just prints out a message and starts build()
+# function.
 all () {
     log 0 "NORMAL" "Rebuild all packages.\033[0m Output redirected to $LOGPATH/reporebuild-PKGNAME.log"
     buildpkg
 }
 
+# Finish point. Printing list of failed packages (if they're present),
+# or just saying, that "Job completed".
 buildpkg_done () {
     if [ -f /tmp/reporebuild/failed.list ]; then
         echo -e "\033[1;31m===>\033[0m These packages are failed to built:"
@@ -49,6 +56,8 @@ buildpkg_done () {
     exit
 }
 
+# This method iterates over reporebuild.list file and feed packages
+# to build_package() function from lib/builder.lib.sh.
 buildpkg () {
     tmpdir
     check_packages_list_file
@@ -56,12 +65,12 @@ buildpkg () {
     for PKGNAME in $(cat ~/.config/reporebuild.list); do
         log 0 "NORMAL" "Rebuilding package: \033[1;31m$PKGNAME\033[0m"
         build_package $PKGNAME $PKGBUILDSPATH
-        PKGNAME=PKGNAME+1
     done
 
     buildpkg_done
 }
 
+# This method responsible for package building from AUR.
 buildfromaur () {
     PACKAGES=$@
     for PKGNAME in ${PACKAGES}; do
@@ -71,6 +80,8 @@ buildfromaur () {
     buildpkg_done
 }
 
+# This method responsible for package building from local
+# PKGBUILD storage.
 localbuildpkg () {
     PACKAGES=$@
     for PKGNAME in ${PACKAGES}; do

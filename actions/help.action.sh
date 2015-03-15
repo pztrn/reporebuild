@@ -1,3 +1,5 @@
+# Help application. Does nothing more, than showing help.
+
 function help_main() {
     help
 }

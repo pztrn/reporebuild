@@ -1,5 +1,7 @@
 # Downloader library.
 
+# This method downloads PKGBUILD and neccessary file from AUR, within
+# one tarball.
 function fetch_package_from_aur() {
     local PKGNAME=$1
     local DESTINATION=$2

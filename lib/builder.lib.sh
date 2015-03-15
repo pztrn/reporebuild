@@ -1,5 +1,6 @@
 # This library responsible for all package building actions.
 
+# Actual package building.
 function build_package() {
     local PKGNAME=$1
     local PKGBUILD_PATH=$2
@@ -32,6 +33,8 @@ function build_package() {
     fi
 }
 
+# Do some preliminary actions (like PKGBUILD fetching), and launch
+# build_package().
 function build_from_aur() {
     local PKGNAME=$1
 
@@ -58,6 +61,7 @@ function build_from_aur() {
 
 }
 
+# Some endless loop for PKGBUILD editing. Kinda like yaourt one.
 function edit_pkgbuild(){
     while true; do
         read_bool_answer "NORMAL" "Fetching Complete. Would you like to edit PKGBUILD (will use $EDITOR)? [Y/N] "

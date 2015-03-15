@@ -1,7 +1,11 @@
+# Configuration actions application.
+
+# Parameters parser.
 function config_main() {
     show_config
 }
 
+# This method shows reporebuild configuration.
 function show_config() {
     echo -e "\033[1;32mPKGBUILDs located at:\033[1;33m" $PKGBUILDSPATH
     echo -e "\033[1;32mRepository path:\033[1;36m" $REPOPATH
