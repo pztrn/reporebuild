@@ -18,6 +18,8 @@ function help () {
     echo "    fetch pkgname          fetch PKGBUILD from AUR without building"
     echo ""
     echo "    build local pkgname    rebuild only specific package from local PKGBUILD"
+    echo ""
+    echo "    config show            shows current reporebuild configuration"
     echo
     echo "You must create ~/.config/reporebuild.conf! See created one for example."
     echo "PKGBUILDs must be placed in <pkgname> folder (for example, for PSI-PLUS package:"
