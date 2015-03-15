@@ -23,3 +23,7 @@ List of packages, that will be rebuilt while issuing `reporebuild build all` are
     gajim-hg
     psi-plus-git
     ...
+
+## Licensing
+
+For everyday usage **reporebuild** licensed under Beerware license (read BEERWARE for more information). If you making something on top of it - **reporebuild** licensed under Terms and Conditions of GNU General Public License version 2 or higher.
