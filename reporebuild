@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# Archlinux repository rebuild script
+# For those, who creates own repo with packages from aur
+# Helps keep repository up-to-date
+#
+# (c) 2010-2015, Stanislav N. aka pztrn. No rights reserved.
+# Licensed under GNU General Public License v2 or higher.
+# Dual licensed under beerware license. Read DUAL_LICENSE
+# for more information.
+#
+# Thanks to Russian Archlinux Community (http://archlinux.org.ru)
+# for help and suggestions
+
+################################################### Variables ##########
+PKGNAME=1
+RR_PATH=$(pwd $0)
+LOG_LINES_COUNT_ON_EXIT=10
+########################################################################
+
+################################################### CONFIGURATION ######
+. ~/.config/reporebuild.conf
+########################################################################
+
+################################################### Includes ###########
+source "${RR_PATH}/lib/builder.lib.sh"
+source "${RR_PATH}/lib/common.lib.sh"
+source "${RR_PATH}/lib/config.lib.sh"
+source "${RR_PATH}/lib/downloader.lib.sh"
+source "${RR_PATH}/lib/log.lib.sh"
+########################################################################
+
+configcheck
+tmpdir
+
+function execute_action() {
+    local action=$1
+    shift
+    local params=$@
+    if [ -f "${RR_PATH}/actions/${action}.action.sh" ]; then
+        source "${RR_PATH}/actions/${action}.action.sh"
+        func_here=`declare -F ${action}_main`
+        if [ $func_here ]; then
+            log 1 "NORMAL" "Executing action '${action}'..."
+            function="${action}_main"
+            ${function} $@
+        fi
+    else
+        log 0 "ERROR" "Action '${action}' does not exist."
+        exit 1
+    fi
+}
+
+case "$1" in
+-a)
+    all
+    ;;
+-b)
+    tmpdir
+    echo $@ | cut -c4- > /tmp/reporebuild/reporebuild.tmp
+    buildfromaur
+    ;;
+-f)
+    tmpdir
+    echo $@ | cut -c4- > /tmp/reporebuild/reporebuild.tmp
+    fetchfromaur
+    ;;
+-l)
+    tmpdir
+    echo $@ | cut -c4- > /tmp/reporebuild/reporebuild.tmp
+    localbuildpkg
+    ;;
+-cfg)
+    echo -e "\033[1;32mPKGBUILDs located at:\033[1;33m" $PKGBUILDSPATH
+    echo -e "\033[1;32mRepository path:\033[1;36m" $REPOPATH
+    echo -e "\033[1;32mRepository name:\033[1;37m" $REPONAME
+    echo -e "\033[1;32mBuild log located at:\033[1;31m" $LOGPATH
+    echo
+    echo -e "\033[0mIf this information incorrect - fix it in ~/.config/reporebuild.conf"
+    exit 0
+    ;;
+*)
+    execute_action $@
+    ;;
+esac
+
+exit
+########################################################################
