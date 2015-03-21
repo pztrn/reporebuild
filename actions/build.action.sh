@@ -46,7 +46,7 @@ build_main() {
 # This function checks for packages list existing.
 # This packages list should be placed in $HOME/.config/reporebuild.list.
 function check_packages_list_file() {
-    if [ ! -f "~/.config/reporebuild.list" ]; then
+    if [ ! -f "~/.config/reporebuild/reporebuild.list" ]; then
         log 0 "ERROR" "ERROR: packages list not found!"
         log 0 "ERROR" "Either create one by hand, or use 'build pkgnames'!"
         exit 10
@@ -61,7 +61,7 @@ function check_packages_list_file() {
 all () {
     # Check for package listing.
     if [ ! -f ~/.config/reporebuild.list ]; then
-        log 0 "ERROR" "No packages to rebuild. Add one in '~/.config/reporebuild.list' and retry."
+        log 0 "ERROR" "No packages to rebuild. Add one in '~/.config/reporebuild/reporebuild.list' and retry."
         exit 18
     fi
     log 0 "NORMAL" "Rebuild all packages.\033[0m Output redirected to $LOGPATH/reporebuild-PKGNAME.log"
@@ -88,7 +88,7 @@ buildpkg () {
     tmpdir
     check_packages_list_file
 
-    for PKGNAME in $(cat ~/.config/reporebuild.list); do
+    for PKGNAME in $(cat ~/.config/reporebuild/reporebuild.list); do
         log 0 "NORMAL" "Rebuilding package: \033[1;31m$PKGNAME\033[0m"
         build_package $PKGNAME $PKGBUILDSPATH
     done

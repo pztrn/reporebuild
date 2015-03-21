@@ -28,7 +28,8 @@ function help () {
     echo "reporebuild [OPTION] pkgname1 pkgname2 ... pkgnameN"
     echo
     echo "Options:"
-    echo "    build all              rebuild all packages specified in ~/.config/reporebuild.list"
+    echo "    build all              rebuild all packages specified in "
+    echo "                           ~/.config/reporebuild/reporebuild.list"
     echo ""
     echo "    build pkgname          build specified package from AUR (PKGBUILD will be saved"
     echo "                           in PKGBUILDS directory for later usage with -l)"
@@ -39,12 +40,13 @@ function help () {
     echo ""
     echo "    config show            shows current reporebuild configuration"
     echo
-    echo "You must create ~/.config/reporebuild.conf! See created one for example."
+    echo "You must create ~/.config/reporebuild/reporebuild.conf! See created one for example."
     echo "PKGBUILDs must be placed in <pkgname> folder (for example, for PSI-PLUS package:"
     echo "psi-plus/PKGBUILD)"
     echo
-    echo "List of packages in your local repository must be placed in ~/.config/reporebuild.list"
-    echo "Example contents of ~/.config/reporebuild.list:"
+    echo "List of packages in your local repository must be placed in "
+    echo "~/.config/reporebuild/reporebuild.list"
+    echo "Example contents of ~/.config/reporebuild/reporebuild.list:"
     echo
     echo "packagename1"
     echo "packagename2"
