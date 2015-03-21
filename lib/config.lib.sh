@@ -41,7 +41,7 @@ function configcheck() {
         echo "REMOVETHISLINE=1" >> ~/.config/reporebuild/reporebuild.conf
     fi
 
-    source ~/.config/reporebuild.conf
+    source ~/.config/reporebuild/reporebuild.conf
 
     if [ "$REMOVETHISLINE" == "1" ]; then
         echo -e "\033[1;31m===> ERROR:\033[0m Please, verify your config located at \033[1;32m~/.config/reporebuild.conf\033[0m"
