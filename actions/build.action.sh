@@ -24,7 +24,6 @@ build_main() {
     log 2 "NORMAL" "Passed parameters: $@"
 
     if [ "${TYPE}" == "all" ]; then
-        log 0 "NORMAL" "Rebuilding all packages"
         all
     elif [ "${TYPE}" == "local" ]; then
         log 0 "NORMAL" "Executing local packages building for:"
@@ -33,6 +32,11 @@ build_main() {
         log 0 "NORMAL" "${PACKAGES}"
         localbuildpkg ${PACKAGES}
     else
+        check_params_length $@
+        if [ $? -eq 1 ]; then
+            log 0 "ERROR" "Package name wasn't specified!"
+            exit 19
+        fi
         log 0 "NORMAL" "Building packages from AUR:"
         log 0 "NORMAL" $@
         buildfromaur $@
@@ -55,6 +59,11 @@ function check_packages_list_file() {
 # Essentially, this method just prints out a message and starts build()
 # function.
 all () {
+    # Check for package listing.
+    if [ ! -f ~/.config/reporebuild.list ]; then
+        log 0 "ERROR" "No packages to rebuild. Add one in '~/.config/reporebuild.list' and retry."
+        exit 18
+    fi
     log 0 "NORMAL" "Rebuild all packages.\033[0m Output redirected to $LOGPATH/reporebuild-PKGNAME.log"
     buildpkg
 }

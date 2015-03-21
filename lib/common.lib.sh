@@ -37,3 +37,14 @@ function tmpdir() {
         fi
     fi
 }
+
+# This function check passed parameters length.
+# If it is zero - return 1, otherwise 0.
+function check_params_length() {
+    params=$@
+    if [ ${params[@]} -eq 0 ]; then
+        return 1
+    else
+        return 0
+    fi
+}
