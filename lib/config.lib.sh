@@ -44,7 +44,7 @@ function configcheck() {
     source ~/.config/reporebuild/reporebuild.conf
 
     if [ "$REMOVETHISLINE" == "1" ]; then
-        echo -e "\033[1;31m===> ERROR:\033[0m Please, verify your config located at \033[1;32m~/.config/reporebuild.conf\033[0m"
+        echo -e "\033[1;31m===> ERROR:\033[0m Please, verify your config located at \033[1;32m~/.config/reporebuild/reporebuild.conf\033[0m"
         exit 255
     fi
 }
