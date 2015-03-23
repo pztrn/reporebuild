@@ -42,7 +42,7 @@ function tmpdir() {
 # If it is zero - return 1, otherwise 0.
 function check_params_length() {
     params=$@
-    if [ ${params[@]} -eq 0 ]; then
+    if [ ${#params[@]} -eq 0 ]; then
         return 1
     else
         return 0
