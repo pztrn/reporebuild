@@ -33,7 +33,8 @@ function check_prereq()
     log 2 "NORMAL" "Searching for wget..."
     WGET=$(whereis -b wget)
     WGET=$(echo ${WGET} | cut -d ":" -f 2)
-    if [ ${#WGET[@]} -lt 2 ]; then
+    log 2 "NORMAL" "WGET variable length: '${#WGET[@]}'"
+    if [ ${#WGET[@]} -lt 1 ]; then
         log 0 "ERROR" "WGET isn't found! ${WGET}"
         exit 1
     else
