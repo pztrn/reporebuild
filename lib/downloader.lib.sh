@@ -62,8 +62,16 @@ function fetch_package_from_aur() {
         rm -rf $DESTINATION/$PKGNAME &>/dev/null
         exit 1
     fi
+
     tar -xf $PKGNAME.tar.gz -C $DESTINATION
-    echo -e "\033[1;32mSUCCESS\033[0m"
+    if [ $? -ne 0 ]; then
+        echo -e "\033[1;31mFAIL\033[0m"
+        log 0 "ERROR" "Failed to unpack build tree for '${PKGNAME}'!"
+        echo "${PKGNAME}" >> /tmp/reporebuild/failed.list
+        rm -rf $DESTINATION/$PKGNAME &>/dev/null
+    else
+        echo -e "\033[1;32mSUCCESS\033[0m"
+    fi
 
     if [ -f /tmp/reporebuild/failed.list ]; then
         log 0 "ERROR" "These packages are failed to be fetched:"
