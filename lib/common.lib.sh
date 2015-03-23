@@ -33,9 +33,11 @@ function check_prereq()
     log 2 "NORMAL" "Searching for wget..."
     WGET=$(whereis -b wget)
     WGET=$(echo ${WGET} | cut -d ":" -f 2)
-    log 2 "NORMAL" "wget binary path: ${WGET}"
-    if [ ${#WGET[@]} -eq 0 ]; then
+    if [ ${#WGET[@]} -lt 2 ]; then
         log 0 "ERROR" "WGET isn't found! ${WGET}"
+        exit 1
+    else
+        log 2 "NORMAL" "wget binary path: ${WGET}"
     fi
 }
 
