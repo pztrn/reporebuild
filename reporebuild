@@ -42,6 +42,7 @@ source "${RR_PATH}/lib/log.lib.sh"
 ########################################################################
 
 configcheck
+check_prereq
 tmpdir
 
 function execute_action() {

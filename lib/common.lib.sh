@@ -16,6 +16,29 @@
 
 # This library responsible for common actions.
 
+# This function check passed parameters length.
+# If it is zero - return 1, otherwise 0.
+function check_params_length() {
+    params=$@
+    if [ ${#params[@]} -eq 0 ]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+# This function check prerequisites.
+function check_prereq()
+{
+    log 2 "NORMAL" "Searching for wget..."
+    WGET=$(whereis -b wget)
+    WGET=$(echo ${WGET} | cut -d ":" -f 2)
+    log 2 "NORMAL" "wget binary path: ${WGET}"
+    if [ ${#WGET[@]} -eq 0 ]; then
+        log 0 "ERROR" "WGET isn't found! ${WGET}"
+    fi
+}
+
 # Temporary directory check.
 # If temporary directory does not exist - it will create one.
 function tmpdir() {
@@ -35,16 +58,5 @@ function tmpdir() {
             log 0 "ERROR" "Repository path wasn't created."
             exit 30
         fi
-    fi
-}
-
-# This function check passed parameters length.
-# If it is zero - return 1, otherwise 0.
-function check_params_length() {
-    params=$@
-    if [ ${#params[@]} -eq 0 ]; then
-        return 1
-    else
-        return 0
     fi
 }

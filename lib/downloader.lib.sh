@@ -26,7 +26,8 @@ function fetch_package_from_aur() {
     QUESTION=1
     log 0 "NORMAL" "Fetching PKGBUILD for: \033[1;31m$PKGNAME\033[0m... "
     mkdir -p $DESTINATION/$PKGNAME
-    cd $DESTINATION/$PKGNAME && wget https://aur.archlinux.org/packages/$SHORT_PKGNAME/$PKGNAME/$PKGNAME.tar.gz &>/dev/null
+    cd $DESTINATION/$PKGNAME
+    wget https://aur.archlinux.org/packages/$SHORT_PKGNAME/$PKGNAME/$PKGNAME.tar.gz &>/dev/null
     if [ $? -eq 8 ]; then
         log 0 "ERROR" "Invalid package name!"
         rm -rf $DESTINATION/$PKGNAME &>/dev/null
@@ -67,7 +68,7 @@ function fetch_package_from_aur() {
     if [ $? -ne 0 ]; then
         echo -e "\033[1;31mFAIL\033[0m"
         log 0 "ERROR" "Failed to unpack build tree for '${PKGNAME}'!"
-        echo "${PKGNAME}" >> /tmp/reporebuild/failed.list
+        echo "  ${PKGNAME}" >> /tmp/reporebuild/failed.list
         rm -rf $DESTINATION/$PKGNAME &>/dev/null
     else
         echo -e "\033[1;32mSUCCESS\033[0m"
