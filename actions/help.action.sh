@@ -23,7 +23,7 @@ function help_main() {
 function help () {
     clear
     echo "=================================================================================="
-    echo -e "\033[1;32mLocal repository rebuild script\033[0m version 1.2"
+    echo -e "\033[1;32mLocal repository rebuild script\033[0m version 1.3"
     echo -e "\033[1;33mUsage:\033[0m"
     echo "reporebuild [OPTION] pkgname1 pkgname2 ... pkgnameN"
     echo
@@ -32,7 +32,7 @@ function help () {
     echo "                           ~/.config/reporebuild/reporebuild.list"
     echo ""
     echo "    build pkgname          build specified package from AUR (PKGBUILD will be saved"
-    echo "                           in PKGBUILDS directory for later usage with -l)"
+    echo "                           in PKGBUILDS directory for later usage with 'build local')"
     echo ""
     echo "    fetch pkgname          fetch PKGBUILD from AUR without building"
     echo ""

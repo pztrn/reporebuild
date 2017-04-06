@@ -30,15 +30,15 @@ function check_params_length() {
 # This function check prerequisites.
 function check_prereq()
 {
-    log 2 "NORMAL" "Searching for wget..."
-    WGET=$(whereis -b wget)
-    WGET=$(echo ${WGET} | cut -d ":" -f 2)
-    log 2 "NORMAL" "WGET variable length: '${#WGET[@]}'"
-    if [ ${#WGET[@]} -lt 1 ]; then
-        log 0 "ERROR" "WGET isn't found! ${WGET}"
+    log 2 "NORMAL" "Searching for git..."
+    GIT=$(whereis -b git)
+    GIT=$(echo ${GIT} | awk {' print $2 '})
+    log 2 "NORMAL" "git variable length: '${#GIT[@]}'"
+    if [ ${#GIT[@]} -lt 1 ]; then
+        log 0 "ERROR" "git isn't found! ${GIT}"
         exit 1
     else
-        log 2 "NORMAL" "wget binary path: ${WGET}"
+        log 2 "NORMAL" "git binary path: ${GIT}"
     fi
 }
 
